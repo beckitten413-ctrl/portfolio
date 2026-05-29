@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김지영 — AI 프로덕트 메이커</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root{
+    --ink:#100f0d;
+    --ink-soft:#17150f;
+    --paper:#f4efe6;
+    --paper-dim:#b8b0a2;
+    --paper-faint:#7d7669;
+    --gold:#4d9de0;
+    --gold-soft:#8fc4ee;
+    --line:rgba(244,239,230,.12);
+    --line-soft:rgba(244,239,230,.07);
+    /* project signatures */
+    --nesto:#4ade80;
+    --history:#5ad1c4;
+    --unni:#e88aa0;
+    --cinema:#e0b35c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;font-size:85%}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Pretendard',-apple-system,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(77,157,224,.12),transparent 70%);
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+
+  /* ---------- HERO ---------- */
+  header{padding:13vh 0 9vh}
+  .eyebrow{
+    font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;margin-bottom:30px;
+    opacity:0;animation:rise .8s .1s forwards;
+  }
+  .name{
+    font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.6rem,8vw,5.4rem);
+    line-height:.98;letter-spacing:-.01em;margin-bottom:8px;
+    opacity:0;animation:rise .8s .2s forwards;
+  }
+  .name b{font-weight:300;font-style:normal}
+  .role{
+    font-size:clamp(1.1rem,3vw,1.5rem);font-weight:600;color:var(--paper);
+    margin-top:18px;opacity:0;animation:rise .8s .35s forwards;
+  }
+  .role .accent{color:var(--gold)}
+  .tagline{
+    font-size:clamp(1rem,2.4vw,1.18rem);color:var(--paper-dim);max-width:46ch;
+    margin-top:20px;font-weight:400;line-height:1.7;
+    opacity:0;animation:rise .8s .5s forwards;
+  }
+  .tagline em{color:var(--gold-soft);font-style:normal;font-weight:500}
+  .tagline .punch{display:inline-block;margin-top:14px;font-size:1.05em;letter-spacing:-.01em}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:7vh 0;position:relative}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:44px}
+  .sec-num{font-family:'Fraunces',serif;font-style:italic;color:var(--gold);font-size:1.1rem}
+  .sec-title{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--paper-faint);font-weight:600}
+  .sec-line{flex:1;height:1px;background:var(--line)}
+
+  /* ---------- PROJECTS ---------- */
+  .projects{display:grid;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft)}
+  .card{
+    background:var(--ink);padding:40px clamp(24px,4vw,48px);position:relative;
+    display:grid;grid-template-columns:1fr;gap:6px;
+    transition:background .5s ease;text-decoration:none;color:inherit;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--sig,var(--gold));transform:scaleY(0);transform-origin:top;
+    transition:transform .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .card:hover{background:var(--ink-soft)}
+  .card:hover::before{transform:scaleY(1)}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:14px}
+  .card-name{font-family:'Fraunces',serif;font-size:clamp(1.6rem,4vw,2.3rem);font-weight:500;line-height:1.05;letter-spacing:-.01em}
+  .card-kind{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sig,var(--gold));font-weight:600;white-space:nowrap;padding-top:10px;opacity:.9}
+  .card-rows{display:grid;gap:11px;margin-top:8px}
+  .row{display:grid;grid-template-columns:84px 1fr;gap:16px;align-items:start}
+  .row-k{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--paper-faint);font-weight:600;padding-top:3px}
+  .row-v{color:var(--paper-dim);font-size:.98rem;line-height:1.6}
+  .row-v b{color:var(--paper);font-weight:600}
+  .card-foot{margin-top:24px;display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--sig,var(--gold));font-weight:600;letter-spacing:.02em}
+  .card-foot .arrow{transition:transform .35s ease}
+  .card:hover .card-foot .arrow{transform:translateX(6px)}
+  .card-url{color:var(--paper-faint);font-weight:400;font-size:.8rem}
+
+  /* ---------- GRAPHICS ---------- */
+  .gfx-intro{color:var(--paper-dim);max-width:54ch;margin-bottom:36px;font-size:1rem}
+  .gfx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+  .gfx-slot{
+    aspect-ratio:4/5;border:1px dashed var(--line);border-radius:3px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    text-align:center;padding:24px;background:
+      repeating-linear-gradient(45deg,transparent,transparent 11px,var(--line-soft) 11px,var(--line-soft) 12px);
+    transition:border-color .4s ease;
+  }
+  .gfx-slot:hover{border-color:var(--gold)}
+  .gfx-icon{font-family:'Fraunces',serif;font-style:italic;color:var(--paper-faint);font-size:1.7rem}
+  .gfx-label{font-weight:600;color:var(--paper-dim);font-size:.95rem}
+  .gfx-hint{font-size:.74rem;color:var(--paper-faint);line-height:1.5}
+
+  /* ---------- FILLED GRAPHIC SLOT ---------- */
+  a.gfx-slot.filled{
+    padding:0;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg,var(--ink-soft),#0b0c0f);
+    overflow:hidden;
+    position:relative;
+    text-decoration:none;
+    display:block;
+    cursor:zoom-in;
+    transition:border-color .35s ease,transform .35s ease;
+  }
+  a.gfx-slot.filled img{
+    width:100%;height:100%;
+    object-fit:contain;
+    display:block;
+    transition:transform .6s ease;
+  }
+  a.gfx-slot.filled.fit-cover img{object-fit:cover}
+  a.gfx-slot.filled:hover{border-color:var(--gold)}
+  a.gfx-slot.filled:hover img{transform:scale(1.03)}
+  .gfx-award{
+    position:absolute;
+    top:10px;left:10px;
+    background:var(--gold);
+    color:var(--ink);
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:.78rem;
+    padding:3px 10px;
+    border-radius:2px;
+    z-index:2;
+    letter-spacing:.01em;
+  }
+  .gfx-meta{
+    position:absolute;
+    left:0;right:0;bottom:0;
+    background:linear-gradient(transparent,rgba(0,0,0,.92));
+    padding:30px 14px 12px;
+    pointer-events:none;
+  }
+  .gfx-meta-title{
+    color:var(--paper);
+    font-weight:600;
+    font-size:.95rem;
+    margin-bottom:2px;
+    letter-spacing:-.005em;
+  }
+  .gfx-meta-sub{
+    color:var(--paper-dim);
+    font-size:.72rem;
+    letter-spacing:.04em;
+  }
+
+  /* ---------- ORCHESTRA / STACK ---------- */
+  .orch{
+    border:1px solid var(--line);border-radius:4px;padding:clamp(28px,5vw,52px);
+    background:linear-gradient(180deg,var(--ink-soft),var(--ink));
+  }
+  .orch-lead{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3.2vw,1.9rem);font-weight:400;line-height:1.45;letter-spacing:-.01em;max-width:30ch}
+  .orch-lead em{font-style:italic;color:var(--gold)}
+  .orch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;margin-top:40px;background:var(--line-soft);border:1px solid var(--line-soft)}
+  .orch-cell{background:var(--ink);padding:22px 20px}
+  .orch-cell h4{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:9px}
+  .orch-cell p{color:var(--paper-dim);font-size:.9rem;line-height:1.55}
+
+  /* ---------- CONTACT ---------- */
+  .contact{padding:9vh 0 7vh;text-align:center}
+  .contact h2{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(1.8rem,5vw,3rem);letter-spacing:-.01em;margin-bottom:10px}
+  .contact h2 i{color:var(--gold)}
+  .contact p{color:var(--paper-dim);margin-bottom:30px}
+  .links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .links a{
+    color:var(--paper);text-decoration:none;font-weight:600;font-size:.9rem;
+    border:1px solid var(--line);padding:13px 26px;border-radius:40px;
+    transition:all .35s ease;letter-spacing:.02em;
+  }
+  .links a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+  /* ---------- CV / BACKGROUND ---------- */
+  .cv-lead{font-family:'Fraunces',serif;font-size:clamp(1.2rem,3vw,1.7rem);font-weight:400;line-height:1.5;letter-spacing:-.01em;max-width:36ch;margin-bottom:30px}
+  .cv-lead em{font-style:italic;color:var(--gold)}
+  .cv-list{border-top:1px solid var(--line)}
+  .cv-row{display:grid;grid-template-columns:118px 232px 1fr;gap:20px;padding:11px 6px;border-bottom:1px solid var(--line-soft);align-items:baseline;transition:background .3s ease}
+  .cv-row:hover{background:var(--ink-soft)}
+  .cv-year{font-size:.82rem;color:var(--gold);font-weight:600;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+  .cv-co{color:var(--paper);font-weight:600;font-size:.96rem}
+  .cv-role{color:var(--paper-dim);font-size:.88rem}
+  .cv-extra{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;margin-top:30px;background:var(--line-soft);border:1px solid var(--line-soft)}
+  .cv-cell{background:var(--ink);padding:22px 20px}
+  .cv-cell h4{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
+  .cv-cell p{color:var(--paper-dim);font-size:.9rem;line-height:1.65}
+  .cv-cell p b{color:var(--paper);font-weight:600}
+  @media(max-width:600px){.cv-row{grid-template-columns:1fr;gap:1px;padding:13px 6px}.cv-year{margin-bottom:3px}}
+
+  footer{border-top:1px solid var(--line-soft);padding:32px 0;text-align:center;color:var(--paper-faint);font-size:.78rem;letter-spacing:.04em}
+  footer b{color:var(--paper-dim);font-weight:600}
+
+  /* ---------- MODAL ---------- */
+  .modal{
+    position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;
+    padding:clamp(12px,3vw,40px);
+    background:rgba(8,8,7,.72);backdrop-filter:blur(8px);
+    opacity:0;pointer-events:none;transition:opacity .35s ease;
+  }
+  .modal.open{opacity:1;pointer-events:auto}
+  .modal-box{
+    width:100%;max-width:1180px;height:100%;max-height:880px;
+    background:var(--ink-soft);border:1px solid var(--line);border-radius:8px;
+    display:flex;flex-direction:column;overflow:hidden;
+    box-shadow:0 40px 120px rgba(0,0,0,.6);
+    transform:translateY(24px) scale(.98);transition:transform .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .modal.open .modal-box{transform:none}
+  .modal-bar{
+    display:flex;align-items:center;gap:14px;padding:14px 18px;
+    border-bottom:1px solid var(--line);background:var(--ink);flex-shrink:0;
+  }
+  .modal-dot{width:11px;height:11px;border-radius:50%;background:var(--sig,var(--gold));flex-shrink:0}
+  .modal-title{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:500;flex:1;letter-spacing:-.01em}
+  .modal-host{color:var(--paper-faint);font-size:.78rem;font-weight:400;margin-left:2px}
+  .modal-act{
+    color:var(--paper-dim);text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.02em;
+    border:1px solid var(--line);padding:8px 15px;border-radius:30px;transition:all .3s ease;white-space:nowrap;
+  }
+  .modal-act:hover{border-color:var(--gold);color:var(--gold)}
+  .modal-close{
+    background:none;border:1px solid var(--line);color:var(--paper-dim);
+    width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1.1rem;line-height:1;
+    display:flex;align-items:center;justify-content:center;transition:all .3s ease;flex-shrink:0;
+  }
+  .modal-close:hover{border-color:var(--gold);color:var(--gold);transform:rotate(90deg)}
+  .modal-frame-wrap{flex:1;position:relative;background:var(--ink)}
+  .modal-frame-wrap iframe{width:100%;height:100%;border:0;display:block}
+  .modal-loading{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:14px;color:var(--paper-faint);font-size:.85rem;pointer-events:none;transition:opacity .4s ease;
+  }
+  .modal-loading.hide{opacity:0}
+  .spinner{
+    width:30px;height:30px;border:2px solid var(--line);border-top-color:var(--gold);
+    border-radius:50%;animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media(max-width:600px){
+    .modal-box{max-height:none;border-radius:6px}
+    .modal-host{display:none}
+    .modal-act{padding:7px 12px}
+  }
+
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:600px){
+    .row{grid-template-columns:64px 1fr;gap:12px}
+    .card-top{flex-direction:column;gap:8px}
+    .card-kind{padding-top:0}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Portfolio · AI Product Maker</div>
+    <h1 class="name">김<b>지영</b></h1>
+    <div class="role"><span class="accent">기획·디자인·개발</span>을 혼자 잇는 AI 프로덕트 메이커</div>
+    <p class="tagline">여러 AI를 <em>악기처럼 지휘해</em>, 아이디어 한 줄에서 출시된 제품까지.<br>기획·UI·집필·개발·배포를 두루 다룹니다.<br><em class="punch">혼자서도 끝까지, 함께라면 더 멀리.</em></p>
+  </header>
+
+  <!-- ===== WORK ===== -->
+  <section id="work">
+    <div class="sec-head reveal">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Built &amp; Shipped</span>
+      <span class="sec-line"></span>
+    </div>
+
+    <div class="projects reveal">
+
+      <a class="card" style="--sig:var(--nesto)" href="https://nesto-one-plum.vercel.app/" data-title="N.E.S.T.O" onclick="return openModal(this)">
+        <div class="card-top">
+          <div class="card-name">N.E.S.T.O</div>
+          <div class="card-kind">Web App · SaaS</div>
+        </div>
+        <div class="card-rows">
+          <div class="row"><div class="row-k">문제</div><div class="row-v">프리랜서·1인 작업자의 업무·납기·매출 관리가 흩어져 있다.</div></div>
+          <div class="row"><div class="row-k">접근</div><div class="row-v"><b>음성 입력·캘린더·매출 추적·날씨·뮤직 플레이어</b>를 하나로 통합한 업무 OS를 기획·UI·개발 단독 구현. API 연동 구조까지 설계.</div></div>
+          <div class="row"><div class="row-k">결과</div><div class="row-v">실사용 가능한 통합 대시보드로 완성, 배포 운영 중.</div></div>
+        </div>
+        <div class="card-foot"><span class="card-url">nesto-one-plum.vercel.app</span><span class="arrow">→ 라이브 보기</span></div>
+      </a>
+
+      <a class="card" style="--sig:var(--unni)" href="https://unniwatda-two.vercel.app/" data-title="언니왔다" onclick="return openModal(this)">
+        <div class="card-top">
+          <div class="card-name">언니왔다</div>
+          <div class="card-kind">Content · eBook</div>
+        </div>
+        <div class="card-rows">
+          <div class="row"><div class="row-k">문제</div><div class="row-v">연애 패턴 자기이해를 돕는, 가볍지 않으면서 읽히는 콘텐츠가 드물다.</div></div>
+          <div class="row"><div class="row-k">접근</div><div class="row-v">심리학·신경과학 이론을 근거로 <b>16챕터 84페이지 전자책</b>을 기획·집필·디자인. PDF·모바일PDF·EPUB <b>3종 포맷 배포</b>, 카톡 상담·후원 채널까지 운영 설계.</div></div>
+          <div class="row"><div class="row-k">결과</div><div class="row-v">랜딩·웹뷰어·다운로드를 갖춘 완성형 콘텐츠 제품.</div></div>
+        </div>
+        <div class="card-foot"><span class="card-url">unniwatda-two.vercel.app</span><span class="arrow">→ 라이브 보기</span></div>
+      </a>
+
+      <a class="card" style="--sig:var(--history)" href="https://beckeyworld.vercel.app/" data-title="한국사 연표" onclick="return openModal(this)">
+        <div class="card-top">
+          <div class="card-name">한국사 연표</div>
+          <div class="card-kind">Interactive · Edu</div>
+        </div>
+        <div class="card-rows">
+          <div class="row"><div class="row-k">문제</div><div class="row-v">한국사를 시대 흐름과 세계사 맥락 속에서 한눈에 보기 어렵다.</div></div>
+          <div class="row"><div class="row-k">접근</div><div class="row-v">시대·조선 역대 왕별로 주요 사건을 펼쳐 보고, <b>동시대 세계사를 교차</b>해 보여주는 인터랙티브 연표를 기획·구현.</div></div>
+          <div class="row"><div class="row-k">결과</div><div class="row-v">클릭으로 탐색하는 교육용 학습 도구로 완성.</div></div>
+        </div>
+        <div class="card-foot"><span class="card-url">beckeyworld.vercel.app</span><span class="arrow">→ 라이브 보기</span></div>
+      </a>
+
+      <a class="card" style="--sig:var(--cinema)" href="https://beckeycinema.vercel.app/" data-title="My Film Archive" onclick="return openModal(this)">
+        <div class="card-top">
+          <div class="card-name">My Film Archive</div>
+          <div class="card-kind">Web App · DB</div>
+        </div>
+        <div class="card-rows">
+          <div class="row"><div class="row-k">문제</div><div class="row-v">본 영화·드라마 기록이 흩어져 다시 찾아보기 번거롭다.</div></div>
+          <div class="row"><div class="row-k">접근</div><div class="row-v"><b>시청연도·별점·매체별 정렬과 필터</b>, 관리자 모드를 갖춘 개인 시청 아카이브를 설계·구현.</div></div>
+          <div class="row"><div class="row-k">결과</div><div class="row-v">정렬·필터가 작동하는 개인 콘텐츠 DB로 완성.</div></div>
+        </div>
+        <div class="card-foot"><span class="card-url">beckeycinema.vercel.app</span><span class="arrow">→ 라이브 보기</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ===== GRAPHICS ===== -->
+  <section id="graphics">
+    <div class="sec-head reveal">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Graphic Work</span>
+      <span class="sec-line"></span>
+    </div>
+    <p class="gfx-intro reveal">제품 바깥에서, 브랜드·캐릭터·굿즈로 이어진 그래픽 작업들. <span style="color:var(--gold-soft)">(아래 칸에 이미지를 넣어 주세요 — 자세한 방법은 하단 안내 참고)</span></p>
+    <div class="gfx-grid reveal">
+      <a class="gfx-slot filled fit-cover" href="taehwagang.jpg" target="_blank" rel="noopener">
+        <img src="taehwagang.jpg" alt="Four Seasons with Birds — 태화강국가정원 공모전 출품작" loading="lazy">
+        <div class="gfx-meta">
+          <div class="gfx-meta-title">Four Seasons with Birds (장려상)</div>
+          <div class="gfx-meta-sub">태화강국가정원 디자인 공모전 · 사계절 조류 시스템</div>
+        </div>
+      </a>
+      <a class="gfx-slot filled fit-cover" href="umff_2017.pdf" target="_blank" rel="noopener">
+        <img src="umff_cover.jpg" alt="Space Design for UMFF — 2017 울주산악영화제 공간 디자인" loading="lazy">
+        <div class="gfx-meta">
+          <div class="gfx-meta-title">Space Design for UMFF (채택·실행)</div>
+          <div class="gfx-meta-sub">2017 울주산악영화제 · 5개 컨셉존 공간 디자인 · 13p 기획서</div>
+        </div>
+      </a>
+      <div class="gfx-slot">
+        <div class="gfx-icon">03</div>
+        <div class="gfx-label">남산타워 12간지 동물</div>
+        <div class="gfx-hint">캐릭터 / 일러스트 시리즈<br>이미지 자리</div>
+      </div>
+      <div class="gfx-slot">
+        <div class="gfx-icon">04</div>
+        <div class="gfx-label">국립박물관 디자인 제품</div>
+        <div class="gfx-hint">굿즈 / 제품 디자인<br>이미지 자리</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ORCHESTRA ===== -->
+  <section id="how">
+    <div class="sec-head reveal">
+      <span class="sec-num">03</span>
+      <span class="sec-title">How I Work</span>
+      <span class="sec-line"></span>
+    </div>
+    <div class="orch reveal">
+      <p class="orch-lead">한 사람이 한 팀처럼. 각각의 AI를 <em>악기</em>로, 저는 그것을 <em>지휘</em>해 하나의 완성품으로 만듭니다.</p>
+      <div class="orch-grid">
+        <div class="orch-cell"><h4>기획 / 글</h4><p>구조 설계, 카피·원고 집필, 콘텐츠 기획을 AI와 함께 빠르게 반복·완성.</p></div>
+        <div class="orch-cell"><h4>디자인 / 그래픽</h4><p>그래픽 디자인 역량 위에 생성형 이미지 도구를 얹어 비주얼·캐릭터·굿즈 제작.</p></div>
+        <div class="orch-cell"><h4>개발 / 배포</h4><p>AI 코딩으로 웹앱을 구현하고 Vercel로 배포·운영까지 단독 진행.</p></div>
+        <div class="orch-cell"><h4>지휘 / 통합</h4><p>흩어진 도구의 결과물을 하나의 일관된 제품으로 엮는 판단과 기획력.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BACKGROUND ===== -->
+  <section id="cv">
+    <div class="sec-head reveal">
+      <span class="sec-num">04</span>
+      <span class="sec-title">Background</span>
+      <span class="sec-line"></span>
+    </div>
+    <p class="cv-lead reveal">시각디자인을 전공하고 <em>25년간</em> 상품·편집·마케팅 디자인과 팀 리딩을 거쳐, 지금은 <em>AI 프로덕트</em>로 영역을 넓히고 있습니다.</p>
+    <div class="cv-list reveal">
+      <div class="cv-row"><div class="cv-year">2024–2026</div><div class="cv-co">풍진PR</div><div class="cv-role">디자이너 실장</div></div>
+      <div class="cv-row"><div class="cv-year">2021–2023</div><div class="cv-co">필리아 출판인쇄</div><div class="cv-role">디자이너 차장</div></div>
+      <div class="cv-row"><div class="cv-year">2019–2020</div><div class="cv-co">예스엔터테인먼트</div><div class="cv-role">디자이너 실장</div></div>
+      <div class="cv-row"><div class="cv-year">2016–2019</div><div class="cv-co">디자인리더</div><div class="cv-role">디자이너 실장</div></div>
+      <div class="cv-row"><div class="cv-year">2014–2016</div><div class="cv-co">메가마트 언양점 · 마케팅팀</div><div class="cv-role">디자이너</div></div>
+      <div class="cv-row"><div class="cv-year">2012–2013</div><div class="cv-co">아띠 엔터테인먼트</div><div class="cv-role">그래픽 디자인 · 부서 관리</div></div>
+      <div class="cv-row"><div class="cv-year">2012</div><div class="cv-co">출판사 사람들</div><div class="cv-role">서적 편집디자인</div></div>
+      <div class="cv-row"><div class="cv-year">2011</div><div class="cv-co">—</div><div class="cv-role">세계여행 (2011.04 – 2012.03)</div></div>
+      <div class="cv-row"><div class="cv-year">2006–2009</div><div class="cv-co">오케이아하 (OKAHHA)</div><div class="cv-role">상품개발 · 그래픽</div></div>
+      <div class="cv-row"><div class="cv-year">2003–2006</div><div class="cv-co">씬 (Xiiin)</div><div class="cv-role">상품개발 · 그래픽</div></div>
+      <div class="cv-row"><div class="cv-year">2001–2003</div><div class="cv-co">와이드유니온 (Wideunion)</div><div class="cv-role">상품개발 · 그래픽</div></div>
+      <div class="cv-row"><div class="cv-year">1998–2000</div><div class="cv-co">신성기획</div><div class="cv-role">인쇄물 기획 · 디자인</div></div>
+    </div>
+    <div class="cv-extra reveal">
+      <div class="cv-cell"><h4>Tools</h4><p><b>Photoshop · Illustrator</b> 상급<br>AI 이미지·텍스트·코딩 도구 활용</p></div>
+      <div class="cv-cell"><h4>Languages</h4><p><b>일본어</b> 중상급 (회화·문서)<br><b>영어</b> 일상 회화</p></div>
+      <div class="cv-cell"><h4>Education</h4><p><b>울산대학교</b><br>조형대학 시각디자인학과 학사</p></div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact reveal">
+    <div class="links">
+      <a href="mailto:beckitten413@gmail.com">beckitten413@gmail.com</a>
+      <a href="resume.pdf" download="김지영_이력서.pdf">이력서 다운로드 ↓</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 <b>김지영</b> · 이 포트폴리오 사이트 또한 AI로 직접 기획·제작했습니다.
+  </footer>
+
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-bar">
+      <span class="modal-dot" id="m-dot"></span>
+      <span class="modal-title" id="m-title">프로젝트 <span class="modal-host" id="m-host"></span></span>
+      <a class="modal-act" id="m-open" href="#" target="_blank" rel="noopener">새 탭에서 열기 ↗</a>
+      <button class="modal-close" id="m-close" aria-label="닫기">✕</button>
+    </div>
+    <div class="modal-frame-wrap">
+      <div class="modal-loading" id="m-load"><div class="spinner"></div><span>불러오는 중…</span></div>
+      <iframe id="m-frame" title="프로젝트 미리보기"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  const modal=document.getElementById('modal');
+  const frame=document.getElementById('m-frame');
+  const load=document.getElementById('m-load');
+  const mTitle=document.getElementById('m-title');
+  const mHost=document.getElementById('m-host');
+  const mDot=document.getElementById('m-dot');
+  const mOpen=document.getElementById('m-open');
+
+  function openModal(el){
+    const url=el.getAttribute('href');
+    const title=el.getAttribute('data-title')||'프로젝트';
+    const sig=el.style.getPropertyValue('--sig')||'var(--gold)';
+    mTitle.firstChild.textContent=title+' ';
+    mHost.textContent=new URL(url).hostname;
+    mDot.style.background=sig;
+    mOpen.href=url;
+    load.classList.remove('hide');
+    frame.src=url;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    return false; // 기본 이동 막기
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    setTimeout(()=>{frame.src='';},350); // 백그라운드 로딩 중지
+  }
+  frame.addEventListener('load',()=>{ if(frame.src) load.classList.add('hide'); });
+  document.getElementById('m-close').addEventListener('click',closeModal);
+  modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'&&modal.classList.contains('open')) closeModal(); });
+</script>
+
+</body>
+</html>
