@@ -375,7 +375,7 @@
           <div class="gfx-meta-sub">태화강국가정원 디자인 공모전 · 사계절 조류 시스템</div>
         </div>
       </a>
-      <a class="gfx-slot filled fit-cover" href="umff_2017.pdf" data-title="Space Design for UMFF (채택·실행)" onclick="return openModal(this)" style="--sig:#58a55f">
+      <a class="gfx-slot filled fit-cover" href="umff_2017.pdf" data-title="Space Design for UMFF (채택·실행)" data-gallery="umff/page" data-gallery-count="13" onclick="return openModal(this)" style="--sig:#58a55f">
         <img src="umff_cover.jpg" alt="Space Design for UMFF — 2017 울주산악영화제 공간 디자인" loading="lazy">
         <div class="gfx-meta">
           <div class="gfx-meta-title">Space Design for UMFF (채택·실행)</div>
@@ -506,10 +506,28 @@
 
     // 컨텐츠 타입 자동 분기
     const wrap = document.querySelector('.modal-frame-wrap');
-    wrap.querySelectorAll('img, iframe').forEach(n => n.remove());
+    wrap.querySelectorAll('img, iframe, div.gallery-wrap').forEach(n => n.remove());
 
+    const gallerySrc = el.dataset.gallery;
+    const galleryCount = parseInt(el.dataset.galleryCount || '0');
     const isImg = /\.(jpe?g|png|gif|webp|svg)(\?.*)?$/i.test(url);
-    if (isImg) {
+
+    if (gallerySrc && galleryCount) {
+      const container = document.createElement('div');
+      container.className = 'gallery-wrap';
+      container.style.cssText = 'width:100%';
+      let firstLoaded = false;
+      for (let i = 1; i <= galleryCount; i++) {
+        const img = document.createElement('img');
+        const n = String(i).padStart(2, '0');
+        img.src = `${gallerySrc}-${n}.jpg`;
+        img.alt = `${title} — ${i}/${galleryCount}`;
+        img.style.cssText = 'width:100%;height:auto;display:block';
+        img.onload = () => { if (!firstLoaded) { firstLoaded = true; load.classList.add('hide'); } };
+        container.appendChild(img);
+      }
+      wrap.appendChild(container);
+    } else if (isImg) {
       const img = document.createElement('img');
       img.src = url;
       img.alt = title;
@@ -536,7 +554,7 @@
     document.body.style.overflow='';
     setTimeout(()=>{
       const wrap = document.querySelector('.modal-frame-wrap');
-      wrap.querySelectorAll('img, iframe').forEach(n => n.remove());
+      wrap.querySelectorAll('img, iframe, div.gallery-wrap').forEach(n => n.remove());
     },350); // 백그라운드 로딩 중지
   }
   frame.addEventListener('load',()=>{ if(frame.src) load.classList.add('hide'); });
